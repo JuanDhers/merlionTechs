@@ -1,0 +1,80 @@
+.titSales {
+  margin: 0 5%;
+  color: #3e71b3;
+}
+
+.tableHead {
+  background-color: #3e71b3;
+  color: #ffffff;
+}
+
+.tableHeadCell {
+  color: #ffffff !important;
+  width: 15%; // Este porcentaje lo use para mantener la misma distancia en todas las tablas|| a corregir.
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.tableBody {
+  background-color: #ffe;
+}
+
+.btnAdd {
+  color: #ffffff !important;
+  margin-bottom: 0.3rem !important;
+  background-color: #2a6a9e !important;
+  border-radius: 10px !important;
+  padding: 0.7rem !important;
+  float: right !important;
+
+  &:hover {
+    color: #ffffff;
+    background-color: #2b2bb1 !important;
+  }
+}
+
+.eliminar {
+  color: #f00 !important;
+
+  &:hover {
+    color: #fff !important ;
+    background-color: #f00 !important;
+  }
+}
+
+.editar {
+  color: #3e71b3 !important;
+
+  &:hover {
+    color: #fff !important ;
+    background-color: #3e71b3 !important;
+  }
+}
+
+.ver {
+  color: #3bda1c !important;
+
+  &:hover {
+    color: #fff !important ;
+    background-color: #3bda1c !important;
+  }
+}
+
+.borde {
+  border-radius: 30px;
+}
+.bordeSupR {
+  border-top-right-radius: 10px;
+}
+
+.bordeSupL {
+  border-top-left-radius: 10px;
+}
+
+.bordeInfR {
+  border-bottom-right-radius: 10px;
+}
+
+.bordeInfL {
+  border-bottom-left-radius: 10px;
+}

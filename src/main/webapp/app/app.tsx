@@ -1,5 +1,6 @@
 import 'react-toastify/dist/ReactToastify.css';
 import './app.scss';
+import './tabla.scss';
 
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
