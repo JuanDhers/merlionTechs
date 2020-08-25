@@ -192,7 +192,7 @@ export const SalesUpdate = (props: ISalesUpdateProps) => {
   return (
     
       <Paper  className={classes.paper1}>
-        {isNew ? <h2>Crear Nuevo</h2> : <h2>Editas</h2>}
+        {isNew ? <h2>Crear Nuevo</h2> : <h2>Editar Venta</h2>}
 
         {loading ? (
           <p>Loading...</p>
