@@ -67,24 +67,18 @@ import { width } from '@fortawesome/free-solid-svg-icons/faSort';
 export interface ISalesUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 const useStyles = makeStyles(theme => ({
-  titleStyle: {
-    marginBottom: '1rem',
-  },
   paper: {
     margin: theme.spacing(2, 0, 5, 0),
     padding: '2em',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-  boxShadow: '-2px 3px 13px 0px rgba(176,176,176,1)',
-  WebkitBoxShadow:'-2px 3px 13px 0px rgba(176,176,176,1) rgba(176,176,176,1);',
-  MozBoxShadow: ' -2px 3px 13px 0px rgba(176,176,176,1)',
+    boxShadow: '-2px 3px 13px 0px rgba(176,176,176,1)',
+    WebkitBoxShadow: '-2px 3px 13px 0px rgba(176,176,176,1) rgba(176,176,176,1);',
+    MozBoxShadow: ' -2px 3px 13px 0px rgba(176,176,176,1)',
   },
 
- 
-
-
-  paper1:{
+  paper1: {
     margin: theme.spacing(0),
     padding: '10px',
     display: 'flex',
@@ -111,29 +105,25 @@ export const SalesUpdate = (props: ISalesUpdateProps) => {
 
   const { salesEntity, loading, updating } = props;
 
-  //
   const [description, setDescription] = useState('');
   const [state, setState] = useState('');
   const [date, setDate] = useState('');
-  //
 
   const handleClose = () => {
     props.history.push('/sales');
   };
 
-  // inicio
-  const onChangeDesc = e => {
-    setDescription(e.target.value);
+  const onChangeDescription = (e) => {
+   setDescription(e.target.value);
   };
 
-  const onChangeState = e => {
+  const onChangeState = (e) => {
     setState(e.target.value);
   };
 
-  const onChangeDate = e => {
+  const onChangeDate = (e) => {
     setDate(e.target.value);
   };
-  // fin
 
   useEffect(() => {
     if (isNew) {
@@ -149,8 +139,10 @@ export const SalesUpdate = (props: ISalesUpdateProps) => {
     }
   }, [props.updateSuccess]);
 
+
   const saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
+      
       if (description) {
         values = { ...values, description: description };
       } else {
@@ -169,7 +161,6 @@ export const SalesUpdate = (props: ISalesUpdateProps) => {
         values = { ...values, date: salesEntity.date };
       }
 
-      console.log(values, 'values');
       const entity = {
         ...salesEntity,
         ...values,
@@ -177,142 +168,117 @@ export const SalesUpdate = (props: ISalesUpdateProps) => {
 
       if (isNew) {
         props.createEntity(entity);
-        setDescription('');
-        setState('');
-        setDate('');
       } else {
         props.updateEntity(entity);
-        setDescription('');
-        setState('');
-        setDate('');
       }
     }
   };
 
   return (
-    
-      <Paper  className={classes.paper1}>
-        {isNew ? <h2>Crear Nuevo</h2> : <h2>Editar Venta</h2>}
+    <Paper className={classes.paper1}>
+      {isNew ? <h2>Crear Nuevo</h2> : <h2>Editar Venta</h2>}
 
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-         
-            <Grid container xs={12} md={6} className={classes.paper}>
-              
-            
-                <Avatar className={classes.avatar} src="https://www.merliontechs.com/wp-content/uploads/2020/04/LOGO-OK-PNG.png"></Avatar>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <Grid container xs={12} md={6} className={classes.paper}>
+          <Avatar className={classes.avatar} src="https://www.merliontechs.com/wp-content/uploads/2020/04/LOGO-OK-PNG.png"></Avatar>
 
-                <Typography component="h1" variant="h5">
-                 Merlion Techs
-                </Typography>
+          <Typography component="h1" variant="h5">
+            Merlion Techs
+          </Typography>
 
-                <AvForm model={isNew ? {} : salesEntity} onSubmit={saveEntity}>
-                  <form className={classes.form} noValidate>
-                    {!isNew ? (
-                      <Grid item xs={12} style={{ marginBottom: '1rem' }}>
-                        <TextField size="small" fullWidth disabled id="sales-id" label="ID" variant="outlined" value={salesEntity.id} />
-                      </Grid>
-                    ) : null}
-
-                    <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <TextField
-                          variant="outlined"
-                          required
-                          fullWidth
-                          multiline
-                          id="sales-description"
-                          label="Descripción"
-                          value={description ? description : salesEntity.description}
-                          onChange={e => {
-                            onChangeDesc(e);
-                          }}
-                          onClick={() => description === '' && setDescription(salesEntity.description)}
-                        />
-                      </Grid>
-
-                      <Grid item xs={12}>
-                        <FormControl variant="outlined" fullWidth>
-                          <InputLabel htmlFor="outlined-age-native-simple">State</InputLabel>
-                          <Select                          
-                            native
-                            label="State"
-                            value={state ? state : salesEntity.state}
-                            onChange={e => {
-                              onChangeState(e);
-                            }}
-                            inputProps={{
-                              name: 'state',
-                              id: 'sales-state',
-                            }}
-                            onClick={() => state === '' && setState(salesEntity.state)}
-                          >
-                            <option aria-label="None" value="" />
-                            <option value="IN_CHARGE">IN_CHARGE </option>
-                            <option value="SHIPPED">SHIPPED</option>
-                            <option value="DELIVERED">DELIVERED</option>
-                          </Select>
-                          </FormControl>
-                          </Grid>
-
-                          <Grid item xs={12}>
-                            <TextField
-                            size="small"
-                              fullWidth
-                              variant="outlined"
-                              id="sales-date"
-                              label="Date"
-                              type="date"
-                              defaultValue="2017-05-24"
-                              value={date ? date : salesEntity.date}
-                              onChange={e => {
-                                onChangeDate(e);
-                              }}
-                              InputLabelProps={{
-                                shrink: true,
-                              }}
-                            />
-                          </Grid>
-
-                          
-                            <Grid item xs={12}>
-                              <Link to="/sales" style={{ textDecoration: 'none' }}>
-                                <Button 
-                                fullWidth
-                                variant="outlined" 
-                                color="primary" 
-                                startIcon={<ArrowBackIcon />}>
-                                  Volver
-                                </Button>
-                              </Link>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                              <Button
-                              fullWidth
-                                id="save-entity"
-                                type="submit"
-                                disabled={updating}
-                                variant="contained"
-                                color="primary"
-                                startIcon={<SaveIcon />}
-                              >
-                                Guardar
-                              </Button>
-                            </Grid>
-                            
-                        
-                      
-                    </Grid>
-                  </form>
-                </AvForm>
-              
+          <AvForm model={isNew ? {} : salesEntity} onSubmit={saveEntity}>
+            <form className={classes.form} noValidate>
+              {!isNew ? (
+                <Grid item xs={12} style={{ marginBottom: '1rem' }}>
+                  <TextField size="small" fullWidth disabled id="sales-id" label="ID" variant="outlined" value={salesEntity.id} />
                 </Grid>
-         
-        )}
-      </Paper>
-    
+              ) : null}
+
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    multiline
+                    id="sales-description"
+                    label="Descripción"
+                    value={description ? description : salesEntity.description}
+                    onChange={e => {
+                      onChangeDescription(e);
+                    }}
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <FormControl variant="outlined" fullWidth>
+                    <InputLabel htmlFor="outlined-age-native-simple">State</InputLabel>
+                    <Select
+                      native
+                      label="State"
+                      value={state ? state : salesEntity.state}
+                      onChange={e => {
+                        onChangeState(e);
+                      }}
+                      inputProps={{ name: 'state', id: 'sales-state' }}
+                      onClick={() => state === '' && setState(salesEntity.state)}
+                    >
+                      <option aria-label="None" value="" />
+                      <option value="IN_CHARGE">IN_CHARGE </option>
+                      <option value="SHIPPED">SHIPPED</option>
+                      <option value="DELIVERED">DELIVERED</option>
+                    </Select>
+                  </FormControl>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField
+                    size="small"
+                    fullWidth
+                    variant="outlined"
+                    id="sales-date"
+                    label="Date"
+                    type="date"
+                    defaultValue="2017-05-24"
+                    value={date ? date : salesEntity.date}
+                    onChange={e => {
+                      onChangeDate(e);
+                    }}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <Link to="/sales" style={{ textDecoration: 'none' }}>
+                    <Button fullWidth variant="outlined" color="primary" startIcon={<ArrowBackIcon />}>
+                      Volver
+                    </Button>
+                  </Link>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <Button
+                    fullWidth
+                    id="save-entity"
+                    type="submit"
+                    disabled={updating}
+                    variant="contained"
+                    color="primary"
+                    startIcon={<SaveIcon />}
+                  >
+                    Guardar
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+          </AvForm>
+        </Grid>
+      )}
+    </Paper>
   );
 };
 
